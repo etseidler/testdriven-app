@@ -53,7 +53,8 @@ class TestUserService(BaseTestCase):
             self.assertIn('fail', data['status'])
 
     def test_add_user_invalid_json_keys(self):
-        """Ensure error is thrown if the JSON object does not have a username key."""
+        """Ensure error is thrown if the JSON object
+        does not have a username key."""
         with self.client:
             response = self.client.post(
                 '/users',
@@ -117,8 +118,8 @@ class TestUserService(BaseTestCase):
             self.assertIn('fail', data['status'])
 
     def test_all_users(self):
-        user = add_user('michael', 'michael@mherman.org')
-        user = add_user('fletcher', 'fletcher@notreal.com')
+        add_user('michael', 'michael@mherman.org')
+        add_user('fletcher', 'fletcher@notreal.com')
         with self.client:
             response = self.client.get('/users')
             data = json.loads(response.data.decode())
