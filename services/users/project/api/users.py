@@ -1,9 +1,10 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, jsonify, request, render_template
 from flask_restful import Resource, Api
 
 from project import db
+from project.api.auth import auth_blueprint
 from project.api.models import User
-from sqlalchemy import exc
+from sqlalchemy import exc, or_
 
 users_blueprint = Blueprint("users", __name__, template_folder="./templates")
 api = Api(users_blueprint)
@@ -84,3 +85,34 @@ def index():
         db.session.commit()
     users = User.query.all()
     return render_template("index.html", users=users)
+
+
+@auth_blueprint.route("/auth/register", methods=["POST"])
+def register_user():
+    post_data = request.get_json()
+    response_object = {"status": "fail", "message": "Invalid payload."}
+    if not post_data:
+        return jsonify(response_object), 400
+    username = post_data.get("username")
+    email = post_data.get("email")
+    password = post_data.get("password")
+    try:
+        user = User.query.filter(
+            or_(User.username == username, User.email == email)
+        ).first()
+        if not user:
+            new_user = User(username=username, email=email, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            auth_token = new_user.encode_auth_token(new_user.id)
+            response_object["status"] = "success"
+            response_object["message"] = "Successfully registered."
+            response_object["auth_token"] = auth_token.decode()
+            return jsonify(response_object), 201
+        else:
+            response_object["message"] = "Sorry. That user already exists."
+            return jsonify(response_object), 400
+
+    except (exc.IntegrityError, ValueError):
+        db.session.rollback()
+        return jsonify(response_object), 400
