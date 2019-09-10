@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 
 from project import db
 from project.api.models import User
+from project.api.utils import authenticate_restful
 from sqlalchemy import exc
 
 users_blueprint = Blueprint("users", __name__, template_folder="./templates")
@@ -38,6 +39,9 @@ class Users(Resource):
 
 
 class UsersList(Resource):
+
+    method_decorators = {"post": [authenticate_restful]}
+
     def get(self):
         response_object = {
             "status": "success",
@@ -45,7 +49,7 @@ class UsersList(Resource):
         }
         return response_object, 200
 
-    def post(self):
+    def post(self, resp):
         post_data = request.get_json()
         response_object = {"status": "fail", "message": "Invalid payload."}
         if not post_data:
