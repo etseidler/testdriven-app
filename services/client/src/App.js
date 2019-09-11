@@ -27,6 +27,11 @@ class App extends Component {
     this.addUser = this.addUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
   };
+  UNSAFE_componentWillMount() {
+    if (window.localStorage.getItem('authToken')) {
+      this.setState({ isAuthenticated: true });
+    };
+  }
   componentDidMount() {
     this.getUsers();
   };
