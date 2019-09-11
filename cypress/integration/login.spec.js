@@ -9,6 +9,7 @@ describe('Login', () => {
     cy
       .visit('/login')
       .get('h1').contains('Log In')
+      .get('input[disabled]')
       .get('form');
   });
 

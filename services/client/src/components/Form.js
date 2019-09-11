@@ -10,7 +10,8 @@ class Form extends Component {
         username: '',
         email: '',
         password: ''
-      }
+      },
+      valid: false
     };
     this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -32,6 +33,7 @@ class Form extends Component {
     const obj = this.state.formData;
     obj[event.target.name] = event.target.value;
     this.setState(obj);
+    this.validateForm();
   };
   handleUserFormSubmit(event) {
     event.preventDefault();
@@ -50,6 +52,9 @@ class Form extends Component {
         this.props.loginUser(res.data.auth_token);
       })
       .catch((err) => { console.log(err); });
+  };
+  validateForm = () => {
+    this.setState({ valid: true });
   };
   render() {
     if (this.props.isAuthenticated) {
@@ -104,6 +109,7 @@ class Form extends Component {
             type="submit"
             className="button is-primary is-medium is-fullwidth"
             value="Submit"
+            disabled={!this.state.valid}
           />
         </form>
       </div>
