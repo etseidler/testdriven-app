@@ -1,4 +1,5 @@
 const randomstring = require('randomstring');
+const { password } = require('./constants');
 
 const username = randomstring.generate();
 const email = `${username}@test.com`;
@@ -22,7 +23,7 @@ describe('Login', () => {
       .visit('/register')
       .get('input[name="username"]').type(username)
       .get('input[name="email"]').type(email)
-      .get('input[name="password"]').type('test')
+      .get('input[name="password"]').type(password)
       .get('input[type="submit"]').click()
 
     // log a user out
@@ -33,7 +34,7 @@ describe('Login', () => {
     cy
       .get('a').contains('Log In').click()
       .get('input[name="email"]').type(email)
-      .get('input[name="password"]').type('test')
+      .get('input[name="password"]').type(password)
       .get('input[type="submit"]').click()
       .wait(100);
 
