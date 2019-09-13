@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { registerFormRules, loginFormRules } from './formRules'
+import FormErrors from './FormErrors';
 
 class Form extends Component {
   constructor(props) {
@@ -11,6 +13,8 @@ class Form extends Component {
         email: '',
         password: ''
       },
+      registerFormRules: registerFormRules,
+      loginFormRules: loginFormRules,
       valid: false
     };
     this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
@@ -60,6 +64,10 @@ class Form extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to='/' />;
     };
+    let formRules = this.state.loginFormRules;
+    if (this.props.formType === 'Register') {
+      formRules = this.state.registerFormRules;
+    }
     return (
       <div>
         {this.props.formType === 'Login' &&
@@ -69,6 +77,10 @@ class Form extends Component {
           <h1 className="title is-1">Register</h1>
         }
         <hr /><br />
+        <FormErrors
+          formType={this.props.formType}
+          formRules={formRules}
+        />
         <form onSubmit={(event) => this.handleUserFormSubmit(event)}>
           {this.props.formType === 'Register' &&
             <div className="field">
