@@ -57,7 +57,14 @@ class Form extends Component {
         this.clearForm();
         this.props.loginUser(res.data.auth_token);
       })
-      .catch((err) => { console.log(err); });
+      .catch(() => {
+        if (formType === 'Login') {
+          this.props.createMessage('Incorrect username or password.', 'danger');
+        };
+        if (formType === 'Register') {
+          this.props.createMessage('That user already exists.', 'danger');
+        };
+      });
   };
   validateForm = () => {
     const formData = this.state.formData;
