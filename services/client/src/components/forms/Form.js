@@ -59,7 +59,7 @@ class Form extends Component {
       })
       .catch(() => {
         if (formType === 'Login') {
-          this.props.createMessage('Incorrect username or password.', 'danger');
+          this.props.createMessage('User does not exist.', 'danger');
         };
         if (formType === 'Register') {
           this.props.createMessage('That user already exists.', 'danger');
