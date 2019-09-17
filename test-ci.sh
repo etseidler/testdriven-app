@@ -38,7 +38,7 @@ if [[ "${env}" == "development" ]]; then
 elif [[ "${env}" == "staging" ]]; then
   echo "Running e2e tests!"
   e2e stage
-elif [[ "${env}" == "production" ]]; then
+elif [[ "${env}" == "prod" ]]; then
   echo "Running e2e tests!"
   e2e prod
 else

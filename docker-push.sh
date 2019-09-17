@@ -6,13 +6,13 @@ then
 
   if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
     export DOCKER_ENV=stage
-  elif [[ "$TRAVIS_BRANCH" == "production" ]]; then
+  elif [[ "$TRAVIS_BRANCH" == "prod" ]]; then
     export DOCKER_ENV=prod
     export REACT_APP_USERS_SERVICE_URL=http://testdriven-production-alb-652246134.us-east-1.elb.amazonaws.com
   fi
 
   if [ "$TRAVIS_BRANCH" == "staging" ] || \
-     [ "$TRAVIS_BRANCH" == "production" ]
+     [ "$TRAVIS_BRANCH" == "prod" ]
   then
     curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
     unzip awscli-bundle.zip
@@ -25,7 +25,7 @@ then
   fi
 
   if [ "$TRAVIS_BRANCH" == "staging" ] || \
-     [ "$TRAVIS_BRANCH" == "production" ]
+     [ "$TRAVIS_BRANCH" == "prod" ]
   then
     # users
     docker build $USERS_REPO -t $USERS:$COMMIT -f Dockerfile-$DOCKER_ENV
