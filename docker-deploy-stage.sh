@@ -1,10 +1,13 @@
 #!/bin/sh
+set -e
 
 if [ -z "$TRAVIS_PULL_REQUEST" ] || [ "$TRAVIS_PULL_REQUEST" == "false" ]
 then
+    echo "Not a pull request..."
 
   if [ "$TRAVIS_BRANCH" == "staging" ]
   then
+    echo "On branch staging..."
 
     JQ="jq --raw-output --exit-status"
 
