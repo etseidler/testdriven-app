@@ -30,10 +30,13 @@ then
     docker build $USERS_REPO -t $USERS:$COMMIT -f Dockerfile-$DOCKER_ENV
     docker tag $USERS:$COMMIT $REPO/$USERS:$TAG
     docker push $REPO/$USERS:$TAG
-    # users db
-    docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
-    docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
-    docker push $REPO/$USERS_DB:$TAG
+    if [ "$TRAVIS_BRANCH" == "staging" ]
+    then
+      # users db
+      docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
+      docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
+      docker push $REPO/$USERS_DB:$TAG
+    fi
     # client
     docker build $CLIENT_REPO -t $CLIENT:$COMMIT -f Dockerfile-$DOCKER_ENV --build-arg REACT_APP_USERS_SERVICE_URL=TBD
     docker tag $CLIENT:$COMMIT $REPO/$CLIENT:$TAG
