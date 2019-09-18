@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://3.84.211.37"
+            "url": "http://testdriven-production-alb-652246134.us-east-1.elb.amazonaws.com"
         }
     ],
     "paths": {
