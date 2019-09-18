@@ -4,8 +4,8 @@ import unittest
 import coverage
 from flask.cli import FlaskGroup
 
-from project import create_app, db  # new
-from project.api.models import Exercise  # new
+from project import create_app, db
+from project.api.models import Exercise
 
 
 COV = coverage.coverage(
@@ -43,7 +43,6 @@ def cov():
     sys.exit(result)
 
 
-# new
 @cli.command("recreate_db")
 def recreate_db():
     db.drop_all()
