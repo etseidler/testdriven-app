@@ -90,7 +90,10 @@ class Exercises extends Component {
             />
             {this.props.isAuthenticated &&
               <div>
-                <button className="button is-primary" onClick={this.submitExercise}>Run Code</button>
+                <button className="button is-primary"
+                  onClick={this.submitExercise}
+                  disabled={this.state.editor.button.isDisabled}
+                >Run Code</button>
                 {this.state.editor.showGrading &&
                   <h5 className="title is-5">
                     <span className="icon is-large">
