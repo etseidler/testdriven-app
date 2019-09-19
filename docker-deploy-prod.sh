@@ -34,6 +34,8 @@ then
 
     deploy_cluster() {
 
+      cluster="test-driven-production-cluster"
+
       # users
       template="ecs_users_prod_taskdefinition.json"
       task_template=$(cat "ecs/$template")
