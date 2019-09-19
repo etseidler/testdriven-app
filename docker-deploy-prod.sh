@@ -1,9 +1,10 @@
 #!/bin/sh
+set -e
 
 if [ -z "$TRAVIS_PULL_REQUEST" ] || [ "$TRAVIS_PULL_REQUEST" == "false" ]
 then
 
-  if [ "$TRAVIS_BRANCH" == "production" ]
+  if [ "$TRAVIS_BRANCH" == "prod" ]
   then
 
     JQ="jq --raw-output --exit-status"

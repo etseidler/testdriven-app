@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://testdriven-staging-alb-1193262712.us-east-1.elb.amazonaws.com"
+            "url": "http://testdriven-production-alb-652246134.us-east-1.elb.amazonaws.com"
         }
     ],
     "paths": {
