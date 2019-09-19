@@ -37,6 +37,7 @@ then
       cluster="test-driven-production-cluster"
 
       # users
+      service="testdriven-users-prod-service"
       template="ecs_users_prod_taskdefinition.json"
       task_template=$(cat "ecs/$template")
       task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $AWS_RDS_URI $PRODUCTION_SECRET_KEY)
@@ -45,6 +46,7 @@ then
       update_service
 
       # client
+      service="testdriven-client-prod-service"
       template="ecs_client_prod_taskdefinition.json"
       task_template=$(cat "ecs/$template")
       task_def=$(printf "$task_template" $AWS_ACCOUNT_ID)
@@ -53,6 +55,7 @@ then
       update_service
 
       # swagger
+      service="testdriven-swagger-prod-service"
       template="ecs_swagger_prod_taskdefinition.json"
       task_template=$(cat "ecs/$template")
       task_def=$(printf "$task_template" $AWS_ACCOUNT_ID)
